@@ -1,5 +1,5 @@
 {
-  "name": "devominerjs",
+  "name": "zanibet-webminer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "start": "DEBUG=stratum node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Gromat Luidgi",
+  "license": "Apache",
   "dependencies": {
     "crypto": "^1.0.1",
     "express": "^4.16.3",
