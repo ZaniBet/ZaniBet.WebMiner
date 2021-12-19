@@ -1,0 +1,11 @@
+{
+    "env": "production",
+    "lhost": "0.0.0.0",
+    "lport": 80,
+    "domain": "https://analytics.zanibet.com",
+    "addr": "42TsYopSZfqAXnJsKjKmP8L6JDdN3qghwF1yHhqwGCkvc2doBoezebQbqXMyvvNgaNFmT8qt62GMuWgo3X37hFmR2rDR97A",
+    "pass": "zanibet:contact@zanibet.com",
+	"key": "/etc/letsencrypt/live/analytics.zanibet.com/privkey.pem",
+	"cert": "/etc/letsencrypt/live/analytics.zanibet.com/cert.pem",
+    "ca": "/etc/letsencrypt/live/analytics.zanibet.com/fullchain.pem"
+}

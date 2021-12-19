@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <style>
+  #backgroundVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .center-block {
+    position: absolute;
+    top: 50%;
+    left:10%;
+    right: 10%;
+    transform: translate(0%,-50%);
+  }
+
+  .center-block-vertical {
+    position: relative;
+    top: 50%;
+    transform: translate(0%, 25%);
+  }
+  </style>
+
+  <title>ZaniAnalytics - Récolteur de ZaniHash pour l'application ZaniBet</title>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <video autoplay muted loop id="backgroundVideo">
+      <source src="https://www.zanibet.com/zanibet.mp4" type="video/mp4">
+      </video>
+
+      <div id="authentification" class="row center-block visible">
+        <div class="col-sm-12 col-md-12">
+          <div class="card border-0">
+            <h5 class="card-header text-center text-white bg-success">Authentification</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 text-center">
+                  <img src="https://www.zanibet.com/img/ic_zanihash_coin.png" width="128" height="128">
+                  <h4 class="text-center">ZaniAnalytics (Bêta)</h4>
+                </div>
+                <div class="col-md-8">
+                  <form class="form-signin">
+                    <input id="input-email" type="email" class="form-control mb-2" placeholder="Adresse email liée à votre compte ZaniBet" required autofocus>
+                    <button id="login-button" class="btn btn-lg btn-success btn-block mb-1" type="submit">Démarrer ZaniAnalytics</button><br>
+                    <p class="card-text">ZaniBet ne vous demandera jamais votre mot de passe ! Les ZaniHashs récoltés seront directement reversés sur le compte ZaniBet à l'adresse email indiquée.</p>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-center text-white bg-dark">
+              <a href="#">En savoir plus sur le fonctionnement de ZaniAnalytics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="zani-analytics" class="card-group center-block" style="visibility: hidden">
+        <div class="card border m-1">
+          <h5 class="card-header text-center text-white bg-success">ZaniAnalytics</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 text-center">
+                <img src="https://www.zanibet.com/img/ic_zanihash_coin.png" width="128" height="128">
+                <h6 class="text-center mt-2">Status</h6>
+                <p id="analytics-status" class="card-subtitle text-muted text-center">-</p>
+              </div>
+              <div class="col-md-7 text-center mt-4">
+                <h6>
+                  DURÉE DE LA SESSION<br>
+                  <small id="session-length" class="text-muted">0</small>
+                </h6>
+                <h6>
+                  ZANIHASHS RÉCOLTÉS<br>
+                  <small id="zanihash-recolted" class="text-muted">0</small>
+                </h6>
+                <h6>
+                  ZANIHASHS RÉCOLTÉS PAR SECONDE<br>
+                  <small id="hashrate" class="text-muted">0</small>
+                </h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <span class="mr-4"><b>Puissance :</b></span>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" value="90" id="customRadioInline1" name="analyticsPower" class="custom-control-input">
+              <label class="custom-control-label" for="customRadioInline1">Light</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" value="50" id="customRadioInline2" name="analyticsPower" class="custom-control-input" checked>
+              <label class="custom-control-label" for="customRadioInline2">Modéré</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" value="5" id="customRadioInline3" name="analyticsPower" class="custom-control-input">
+              <label class="custom-control-label" for="customRadioInline3">Extrême</label>
+            </div>
+          </div>
+
+          <div class="card-footer text-center text-white bg-success">
+            <p class="card-text">Votre portefeuille ZaniBet contient : <strong id="zanihash">- ZaniHashs</strong></p>
+          </div>
+        </div>
+
+        <div class="card border m-1">
+          <h5 class="card-header text-center text-white bg-success">Historique</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <textarea id="log-area" class="form-control h-100 w-100" rows="11" readonly></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js" integrity="sha256-L3S3EDEk31HcLA5C6T2ovHvOcD80+fgqaCDt2BAi92o=" crossorigin="anonymous"></script>
+    <script>
+    %analytics%
+    </script>
+  </body>
+
+  </html>
